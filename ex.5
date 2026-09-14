@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+typedef struct {
+    float real;
+    float imag;
+} Complexo;
+
+void atribui(Complexo *c, float real, float imag) {
+    c->real = real;
+    c->imag = imag;
+}
+
+void imprime(Complexo c) {
+    if (c.imag >= 0) {
+        printf("%.2f + %.2fi\n", c.real, c.imag);
+    } else {
+        printf("%.2f - %.2fi\n", c.real, -c.imag);
+    }
+}
+
+void copia(Complexo *destino, Complexo origem) {
+    destino->real = origem.real;
+    destino->imag = origem.imag;
+}
+
+Complexo soma(Complexo c1, Complexo c2) {
+    Complexo res;
+    res.real = c1.real + c2.real;
+    res.imag = c1.imag + c2.imag;
+    return res;
+}
+
+bool eReal(Complexo c) {
+    return c.imag == 0;
+}
+
+int main() {
+    Complexo c1, c2, c3, c4;
+
+    atribui(&c1, 3.5, 2.0);
+    atribui(&c2, 1.5, 0.0);
+
+    printf("c1: ");
+    imprime(c1);
+
+    printf("c2: ");
+    imprime(c2);
+
+    c3 = soma(c1, c2);
+    printf("Soma (c1 + c2): ");
+    imprime(c3);
+
+    copia(&c4, c1);
+    printf("Copia de c1 em c4: ");
+    imprime(c4);
+
+    printf("c1 e real? %s\n", eReal(c1) ? "Sim" : "Nao");
+    printf("c2 e real? %s\n", eReal(c2) ? "Sim" : "Nao");
+
+    return 0;
+}
