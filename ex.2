@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+int main() {
+
+    int inscricao, classe, i;
+    char nome[50];
+    float referencia;
+    float horasNormais, horasExtras;
+    float salarioHora, salarioNormais;
+    float salarioExtras, inss, salarioLiquido;
+
+    printf("Digite o salario de referencia: ");
+    scanf("%f", &referencia);
+
+    for (i = 1; i <= 100; i++) {
+
+        printf("\nNumero de inscricao: ");
+        scanf("%d", &inscricao);
+
+        if (inscricao == 0)
+            break;
+
+        printf("Nome: ");
+        scanf(" %[^\n]", nome);
+
+        printf("Classe: ");
+        scanf("%d", &classe);
+
+        printf("Horas normais: ");
+        scanf("%f", &horasNormais);
+
+        printf("Horas extras: ");
+        scanf("%f", &horasExtras);
+
+        if (classe == 1)
+            salarioHora = referencia * 1.3;
+        else
+            salarioHora = referencia * 1.9;
+
+        salarioNormais = horasNormais * salarioHora;
+
+        salarioExtras = horasExtras * salarioHora * 1.3;
+
+        inss = (salarioNormais + salarioExtras) * 0.11;
+
+        salarioLiquido = salarioNormais + salarioExtras - inss;
+
+        printf("\nNUMERO DE INSCRICAO: %d", inscricao);
+        printf("\nNOME: %s", nome);
+        printf("\nSALARIO HORAS NORMAIS: %.2f", salarioNormais);
+        printf("\nSALARIO HORAS EXTRAS: %.2f", salarioExtras);
+        printf("\nDEDUCAO INSS: %.2f", inss);
+        printf("\nSALARIO LIQUIDO: %.2f\n", salarioLiquido);
+    }
+
+    return 0;
+}
