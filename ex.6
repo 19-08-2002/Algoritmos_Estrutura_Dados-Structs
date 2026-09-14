@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char nome[50];
+    char genero[30];
+    int integrantes;
+    int ranking;
+} Banda;
+
+void preencherBanda(Banda *b) {
+    printf("Nome da banda: ");
+    fgets(b->nome, sizeof(b->nome), stdin);
+    b->nome[strcspn(b->nome, "\n")] = '\0';
+
+    printf("Tipo de musica (genero): ");
+    fgets(b->genero, sizeof(b->genero), stdin);
+    b->genero[strcspn(b->genero, "\n")] = '\0';
+
+    printf("Numero de integrantes: ");
+    scanf("%d", &(b->integrantes));
+
+    printf("Posicao no ranking (1 a 5): ");
+    scanf("%d", &(b->ranking));
+    getchar(); 
+    printf("\n");
+}
+
+void exibirBanda(const Banda *b) {
+    printf("Nome: %s\n", b->nome);
+    printf("Genero: %s\n", b->genero);
+    printf("Integrantes: %d\n", b->integrantes);
+    printf("Ranking: %d\n", b->ranking);
+    printf("------------------------------\n");
+}
+
+void buscarPorRanking(const Banda bandas[], int tamanho) {
+    int pos;
+    printf("\nDigite a posicao do ranking que deseja consultar (1 a 5): ");
+    scanf("%d", &pos);
+
+    int encontrada = 0;
+    for (int i = 0; i < tamanho; i++) {
+        if ((bandas + i)->ranking == pos) {
+            printf("\n Banda na posicao %d do ranking \n", pos);
+            exibirBanda(bandas + i);
+            encontrada = 1;
+            break;
+        }
+    }
+
+    if (!encontrada) {
+        printf("Nenhuma banda encontrada na posicao %d do ranking.\n", pos);
+    }
+}
+
+int main() {
+    Banda bandas[5];
+
+    printf(" CADASTRO DAS 5 BANDAS FAVORITAS \n\n");
+    for (int i = 0; i < 5; i++) {
+        printf(" Preenchendo Banda %d \n", i + 1);
+        preencherBanda(&bandas[i]);
+    }
+
+    printf("\n TODAS AS BANDAS CADASTRADAS \n\n");
+    for (int i = 0; i < 5; i++) {
+        exibirBanda(&bandas[i]);
+    }
+
+    buscarPorRanking(bandas, 5);
+
+    return 0;
+}
